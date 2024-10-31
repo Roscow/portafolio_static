@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Nico Valdés</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
+		<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+		<style>
+			.list-article{	
+				list-style-type: none;
+			}
+			summary {
+				cursor: pointer;
+			}	
+			#current-location-link {
+				font-style: italic;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+					<header id="header">
+						<div class="logo">
+							<img class="icon imgLogo" src="images/profile_canva3.png" alt="">
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>Nico Valdés</h1>
+								<p>
+									<div class="description">
+										Developer con experiencia en Python, SQL y JavaScript, experiencia en herramientas de Microsoft como Power Automate, Power BI y Business Central. Actualmente viviendo en  <a href="#locations" id="current-location-link"> </a>.
+									</div>
+								</p>								
+									<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
+										<i class="	icon solid fa-download"></i>
+										<strong>CV 🇺🇸</strong> 				
+									</button>
+									<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
+										<i class="	icon solid fa-download"></i>
+										<strong>CV 🇪🇸</strong> 	
+									</button>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="#skills">skills</a></li>
+								<li><a href="#proyectos">Projects</a></li>
+								<li><a href="#formacion">Formation</a></li>
+								<li><a href="#articulos">Posts</a></li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<article id="formacion"> 	
+							<h2 class="major">Formation</h2>
+							<h3>Roles</h3>
+							<p>
+								<a href="https://roadmap.sh"><img src="https://roadmap.sh/card/tall/65bc5dcb0c548122837a55df?variant=dark" alt="roadmap.sh"/></a>								
+							</p>
+							
+							<h3>Courses and certificates</h3>
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th>Study</th>
+											<th>Institution</th>
+											<th>Date</th>
+											<th>Resource</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for e in estudios %}
+										<tr>
+											<td>{{e.nombre}}</td>
+											<td>{{e.institucion}}</td>
+											<td>
+												{% if e.fecha %}
+													{{e.fecha}}
+												{% else  %}
+													<b><i>In course</i></b>
+												{% endif %}
+											</td>
+											<td>
+												{% if e.recurso_url %}
+													<a href="{{e.recurso_url}}" class="button icon solid fa-link small" target="_blank"></a>	
+												{% endif %}
+											</td>
+											
+											</tr>
+											{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</article>
+
+						<article id="proyectos">
+							<h2 class="major">Projects</h2>
+							<select id="projectSelect" onchange="cargarContenidoSeleccionado2()">
+								{% for p in proyectos %}
+									<option value="{{ p.proyecto.recurso }}" {% if p.proyecto.id == 2 %} selected {% endif %}>
+										{{ p.proyecto.nombre|capfirst }}
+									</option>
+								{% endfor %}
+							</select>
+							<br> 	
+							{% for p in proyectos %}
+								<div id="{{ p.proyecto.recurso }}_info" class="project-info" {% if p.proyecto.id != 2 %} style="display: none;" {% endif %}>
+									<p>{{ p.proyecto.descripcion|capfirst }} 																																																																										
+									</p>
+									<!--
+									<img src="{{ p.proyecto.imagen.url }}"  alt="" class="active" style="width: 100%">
+									{{p.proyecto.imagen}} -- {{p.proyecto.imagen.url}}
+									-->
+									{% if p.proyecto.recurso2 %}
+										<div class="video-container">
+											<iframe src="{{ p.proyecto.recurso2 }}" title="6 modificacion juega parte 3editar antes de subir" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+										</div>
+									{% endif %}
+									<ul>
+										{% for c in p.componentes %}												
+											<li>{{c.descripcion|capfirst}}</li>
+										{% endfor %}												
+									</ul>		
+									{% for h in p.habilidades %}
+											&nbsp;
+											<img style="width: 30px;" src="{% static h.1 %}" alt="{{h.0}}">
+									{% endfor %}
+									<br><br>
+									<a href="https://{{ p.proyecto.recurso }}" class="button icon solid small" target="_blank">
+										<i class="fas fa-external-link-alt"></i> Live
+									</a>	
+								</div>
+							{% endfor %}
+						</article>
+					
+						<article id="skills">
+								<h2 class="major">Skills</h2>
+									
+								<select name="categoriaSelect2" id="catSelect2" onchange="mostrarDetalleHabilidad()">
+									{% for h in progreso_habilidades %}
+									<option value="{{ h.id }}">{{ h.nombre }}</option>
+									{% endfor %}
+								</select>
+								<br>
+								<div id="habilidadDetalle" style="display:none;">
+									<div>
+										<label for="progresoBar">Progress</label>
+										<progress id="progresoBar" max="100" value="0"></progress>
+										<span id="progresoValor">0%</span> <!-- Añadir un span para mostrar el valor del progreso -->
+									</div>
+									
+									<div>
+										<embed id="roadmapPDF" src="" type="application/pdf" width="100%" height="800px" style="display:none;">
+									</div>
+									<br>
+									<a id="habilidadLink" href="#" target="_blank">View More</a>
+								</div>
+						</article>	
+						
+						<article id="locations">
+							<table>
+								<thead>
+									<tr>
+										<th>Location</th>
+										<th>Date</th>
+										<th>Resource</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Constitución, Chile</td>
+										<td>19-10-2024</td>
+										<td><a href="https://es.wikipedia.org/wiki/Constituci%C3%B3n_(Chile)" class="button icon solid fa-link small" target="_blank"></a></td>
+									</tr>
+									<tr>
+										<td>Santiago, Chile</td>
+										<td>16-07-1999</td>
+										<td><a href="https://es.wikipedia.org/wiki/Santiago_de_Chile" class="button icon solid fa-link small" target="_blank"></a></td>
+									</tr>								</tbody>
+							</table>
+						</article>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="mailto:nicolas.valdes@live.com?subject=Contacto%20desde%20portafolio" class="icon solid fa-envelope" target="_blank"><span class="label">Correo</span></a></li>
+							<li><a href="https://www.linkedin.com/in/nicolas-v-973209289/" class="icon brands fa-linkedin" target="_blank"><span class="label">linedin</span></a></li>
+							<li><a href="https://discordapp.com/users/roscow91" class="icon brands fa-discord" target="_blank"><span class="label">discord</span></a></li>
+							<li><a href="https://github.com/Roscow" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+						</ul>	
+						<p class="copyright">My <a href="#locations">Locations</a>.</p>
+						<p class="copyright">&copy;  Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+						
+					</footer>
+			</div>
+
+		<!-- BG -->
+			<div id="bg"></div>
+		<!--otros scripts -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/browser.min.js"></script>
+		<script src="js/breakpoints.min.js"></script>
+		<script src="js/util.js"></script>
+		<script src="js/main.js	"></script>
+		<script>
+			const habilidades = [
+			{% for h in progreso_habilidades %}
+			{
+				id: "{{ h.id }}",
+				nombre: "{{ h.nombre }}",
+				progreso: "{{ h.progreso }}",
+				link: "{{ h.link_roadmap }}",
+				roadmap_path: "{{ h.roadmap_path }}"
+			},
+			{% endfor %}
+		];
+
+		function mostrarDetalleHabilidad() {
+			const select = document.getElementById('catSelect2');
+			const selectedId = select.value;
+			const habilidad = habilidades.find(h => h.id === selectedId);
+
+			if (habilidad) {
+				document.getElementById('progresoBar').value = habilidad.progreso;
+				document.getElementById('progresoValor').innerText = `${habilidad.progreso}%`; // Actualizar el texto con el valor del progreso
+				document.getElementById('habilidadLink').href = habilidad.link;
+
+				const roadmapPDF = document.getElementById('roadmapPDF');
+				if (habilidad.roadmap_path) {
+					roadmapPDF.src = `/static/images/roadmaps/${habilidad.roadmap_path}`;
+					roadmapPDF.style.display = 'block';
+				} else {
+					roadmapPDF.style.display = 'none';
+				}
+
+				document.getElementById('habilidadDetalle').style.display = 'block';
+			} else {
+				document.getElementById('habilidadDetalle').style.display = 'none';
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', (event) => {
+			const select = document.getElementById('catSelect2');
+			if (select.options.length > 0) {
+				select.value = select.options[0].value;
+				mostrarDetalleHabilidad();
+			}
+		});
+
+		</script>
+		<!-- script de projects -->
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				var urlPorDefecto = "https://chileapellidos.com";
+				document.getElementById('iframeContenido2').src = urlPorDefecto;
+			});
+		
+			function cargarContenidoSeleccionado2() {
+				var projectSelect = document.getElementById("projectSelect");
+				var selectedProject = projectSelect.value;
+		
+				// Ocultar todos los elementos de proyecto
+				var projectInfos = document.querySelectorAll(".project-info");
+				var projectIframes = document.querySelectorAll(".project-iframe"); // Cambiado a .project-iframe
+		
+				projectInfos.forEach(function(info) {
+					info.style.display = "none";
+				});
+		
+				projectIframes.forEach(function(iframe) {
+					iframe.style.display = "none";
+				});
+		
+				// Mostrar solo el proyecto seleccionado
+				var selectedInfo = document.getElementById(selectedProject + "_info");
+				var selectedIframe = document.getElementById(selectedProject + "_iframe");
+		
+				selectedInfo.style.display = "block";
+				selectedIframe.style.display = "block";
+			}
+		</script>	
+		  <script>
+			// Script para actualizar la ubicación actual en la descripción
+			document.addEventListener("DOMContentLoaded", function() {
+				const firstLocation = document.querySelector('#locations tbody tr:first-child td:first-child').textContent;
+				const locationLink = document.getElementById('current-location-link');
+				locationLink.textContent = firstLocation;	
+			});
+		</script>
+	</body> 	 	
+</html>
