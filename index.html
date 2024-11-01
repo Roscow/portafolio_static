@@ -55,11 +55,11 @@
 								Developer with experience in Python, SQL, and JavaScript, knowledgeable in Microsoft tools such as Power Automate, Power BI, and Business Central. Currently living in <a href="#locations" id="current-location-link"> </a>.
 							</div>
 						</p>								
-							<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
+							<button class="button small" onclick="window.open('pdf/cv_en_2024.pdf')">
 								<i class="	icon solid fa-download"></i>
 								<strong>CV 🇺🇸</strong> 				
 							</button>
-							<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
+							<button class="button small" onclick="window.open('pdf/cv_es_2024.pdf')">
 								<i class="	icon solid fa-download"></i>
 								<strong>CV 🇪🇸</strong> 	
 							</button>
@@ -301,84 +301,6 @@
 		<script src="js/util.js"></script>
 		<script src="js/main.js	"></script>
 		<script>
-			const habilidades = [
-			{% for h in progreso_habilidades %}
-			{
-				id: "{{ h.id }}",
-				nombre: "{{ h.nombre }}",
-				progreso: "{{ h.progreso }}",
-				link: "{{ h.link_roadmap }}",
-				roadmap_path: "{{ h.roadmap_path }}"
-			},
-			{% endfor %}
-		];
-
-		function mostrarDetalleHabilidad() {
-			const select = document.getElementById('catSelect2');
-			const selectedId = select.value;
-			const habilidad = habilidades.find(h => h.id === selectedId);
-
-			if (habilidad) {
-				document.getElementById('progresoBar').value = habilidad.progreso;
-				document.getElementById('progresoValor').innerText = `${habilidad.progreso}%`; // Actualizar el texto con el valor del progreso
-				document.getElementById('habilidadLink').href = habilidad.link;
-
-				const roadmapPDF = document.getElementById('roadmapPDF');
-				if (habilidad.roadmap_path) {
-					roadmapPDF.src = `/static/images/roadmaps/${habilidad.roadmap_path}`;
-					roadmapPDF.style.display = 'block';
-				} else {
-					roadmapPDF.style.display = 'none';
-				}
-
-				document.getElementById('habilidadDetalle').style.display = 'block';
-			} else {
-				document.getElementById('habilidadDetalle').style.display = 'none';
-			}
-		}
-
-		document.addEventListener('DOMContentLoaded', (event) => {
-			const select = document.getElementById('catSelect2');
-			if (select.options.length > 0) {
-				select.value = select.options[0].value;
-				mostrarDetalleHabilidad();
-			}
-		});
-
-		</script>
-		<!-- script de projects -->
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				var urlPorDefecto = "https://chileapellidos.com";
-				document.getElementById('iframeContenido2').src = urlPorDefecto;
-			});
-		
-			function cargarContenidoSeleccionado2() {
-				var projectSelect = document.getElementById("projectSelect");
-				var selectedProject = projectSelect.value;
-		
-				// Ocultar todos los elementos de proyecto
-				var projectInfos = document.querySelectorAll(".project-info");
-				var projectIframes = document.querySelectorAll(".project-iframe"); // Cambiado a .project-iframe
-		
-				projectInfos.forEach(function(info) {
-					info.style.display = "none";
-				});
-		
-				projectIframes.forEach(function(iframe) {
-					iframe.style.display = "none";
-				});
-		
-				// Mostrar solo el proyecto seleccionado
-				var selectedInfo = document.getElementById(selectedProject + "_info");
-				var selectedIframe = document.getElementById(selectedProject + "_iframe");
-		
-				selectedInfo.style.display = "block";
-				selectedIframe.style.display = "block";
-			}
-		</script>	
-		  <script>
-			// Script para actualizar la ubicación actual en la descripción
 			document.addEventListener("DOMContentLoaded", function() {
 				const firstLocation = document.querySelector('#locations tbody tr:first-child td:first-child').textContent;
 				const locationLink = document.getElementById('current-location-link');
