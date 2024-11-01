@@ -20,191 +20,243 @@
 				font-style: italic;
 				font-weight: bold;
 			}
+			.project {
+				border: 1px solid #ddd;
+				margin-bottom: 30px;
+				border-radius: 5px;
+			}
+			.project-header {
+				padding: 10px;
+				font-weight: bold;
+			}
+			.project-content {
+				padding: 10px;
+			}
+			.bold {
+				font-weight: bold;
+			}
+			.project-content p {
+				margin-bottom: 10px; /* Eliminar margen inferior */
+			}
+				
 		</style>
 	</head>
 	<body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<img class="icon imgLogo" src="images/profile_canva3.png" alt="">
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Nico Valdés</h1>
-								<p>
-									<div class="description">
-										Developer con experiencia en Python, SQL y JavaScript, experiencia en herramientas de Microsoft como Power Automate, Power BI y Business Central. Actualmente viviendo en  <a href="#locations" id="current-location-link"> </a>.
-									</div>
-								</p>								
-									<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
-										<i class="	icon solid fa-download"></i>
-										<strong>CV 🇺🇸</strong> 				
-									</button>
-									<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
-										<i class="	icon solid fa-download"></i>
-										<strong>CV 🇪🇸</strong> 	
-									</button>
+		<div id="wrapper">
+			<header id="header">
+				<div class="logo">
+					<img class="icon imgLogo" src="images/profile_canva3.png" alt="">
+				</div>
+				<div class="content">
+					<div class="inner">
+						<h1>Nico Valdés</h1>
+						<p>
+							<div class="description">
+								Developer con experiencia en Python, SQL y JavaScript, experiencia en herramientas de Microsoft como Power Automate, Power BI y Business Central. Actualmente viviendo en  <a href="#locations" id="current-location-link"> </a>.
 							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#skills">skills</a></li>
-								<li><a href="#proyectos">Projects</a></li>
-								<li><a href="#formacion">Formation</a></li>
-								<li><a href="#articulos">Posts</a></li>
-							</ul>
-						</nav>
-					</header>
+						</p>								
+							<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
+								<i class="	icon solid fa-download"></i>
+								<strong>CV 🇺🇸</strong> 				
+							</button>
+							<button class="button small" onclick="window.open('pdf/cv_nicolas_valdes_es.pdf')">
+								<i class="	icon solid fa-download"></i>
+								<strong>CV 🇪🇸</strong> 	
+							</button>
+					</div>
+				</div>
+				<nav>
+					<ul>
+						<li><a href="#skills">skills</a></li>
+						<li><a href="#proyectos">Projects</a></li>
+						<li><a href="#formacion">Formation</a></li>
+						<li><a href="#articulos">Posts</a></li>
+					</ul>
+				</nav>
+			</header>				
 
-				<!-- Main -->
-					<div id="main">
-						<article id="formacion"> 	
-							<h2 class="major">Formation</h2>
-							<h3>Roles</h3>
-							<p>
-								<a href="https://roadmap.sh"><img src="https://roadmap.sh/card/tall/65bc5dcb0c548122837a55df?variant=dark" alt="roadmap.sh"/></a>								
-							</p>
-							
-							<h3>Courses and certificates</h3>
-							<div class="table-wrapper">
-								<table>
-									<thead>
-										<tr>
-											<th>Study</th>
-											<th>Institution</th>
-											<th>Date</th>
-											<th>Resource</th>
-										</tr>
-									</thead>
-									<tbody>
-										{% for e in estudios %}
-										<tr>
-											<td>{{e.nombre}}</td>
-											<td>{{e.institucion}}</td>
-											<td>
-												{% if e.fecha %}
-													{{e.fecha}}
-												{% else  %}
-													<b><i>In course</i></b>
-												{% endif %}
-											</td>
-											<td>
-												{% if e.recurso_url %}
-													<a href="{{e.recurso_url}}" class="button icon solid fa-link small" target="_blank"></a>	
-												{% endif %}
-											</td>
-											
-											</tr>
-											{% endfor %}
-									</tbody>
-								</table>
-							</div>
-						</article>
-
-						<article id="proyectos">
-							<h2 class="major">Projects</h2>
-							<select id="projectSelect" onchange="cargarContenidoSeleccionado2()">
-								{% for p in proyectos %}
-									<option value="{{ p.proyecto.recurso }}" {% if p.proyecto.id == 2 %} selected {% endif %}>
-										{{ p.proyecto.nombre|capfirst }}
-									</option>
-								{% endfor %}
-							</select>
-							<br> 	
-							{% for p in proyectos %}
-								<div id="{{ p.proyecto.recurso }}_info" class="project-info" {% if p.proyecto.id != 2 %} style="display: none;" {% endif %}>
-									<p>{{ p.proyecto.descripcion|capfirst }} 																																																																										
-									</p>
-									<!--
-									<img src="{{ p.proyecto.imagen.url }}"  alt="" class="active" style="width: 100%">
-									{{p.proyecto.imagen}} -- {{p.proyecto.imagen.url}}
-									-->
-									{% if p.proyecto.recurso2 %}
-										<div class="video-container">
-											<iframe src="{{ p.proyecto.recurso2 }}" title="6 modificacion juega parte 3editar antes de subir" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-										</div>
-									{% endif %}
-									<ul>
-										{% for c in p.componentes %}												
-											<li>{{c.descripcion|capfirst}}</li>
-										{% endfor %}												
-									</ul>		
-									{% for h in p.habilidades %}
-											&nbsp;
-											<img style="width: 30px;" src="{% static h.1 %}" alt="{{h.0}}">
-									{% endfor %}
-									<br><br>
-									<a href="https://{{ p.proyecto.recurso }}" class="button icon solid small" target="_blank">
-										<i class="fas fa-external-link-alt"></i> Live
-									</a>	
-								</div>
-							{% endfor %}
-						</article>
-					
-						<article id="skills">
-								<h2 class="major">Skills</h2>
-									
-								<select name="categoriaSelect2" id="catSelect2" onchange="mostrarDetalleHabilidad()">
-									{% for h in progreso_habilidades %}
-									<option value="{{ h.id }}">{{ h.nombre }}</option>
-									{% endfor %}
-								</select>
-								<br>
-								<div id="habilidadDetalle" style="display:none;">
-									<div>
-										<label for="progresoBar">Progress</label>
-										<progress id="progresoBar" max="100" value="0"></progress>
-										<span id="progresoValor">0%</span> <!-- Añadir un span para mostrar el valor del progreso -->
-									</div>
-									
-									<div>
-										<embed id="roadmapPDF" src="" type="application/pdf" width="100%" height="800px" style="display:none;">
-									</div>
-									<br>
-									<a id="habilidadLink" href="#" target="_blank">View More</a>
-								</div>
-						</article>	
+			<!-- Main -->
+				<div id="main">
+					<article id="formacion"> 	
+						<h2 class="major">Formation</h2>
+						<h3>Roles</h3>
+						<p>
+							<a href="https://roadmap.sh"><img src="https://roadmap.sh/card/tall/65bc5dcb0c548122837a55df?variant=dark" alt="roadmap.sh"/></a>								
+						</p>
 						
-						<article id="locations">
+						<h3>Courses and certificates</h3>
+						<div class="table-wrapper">
 							<table>
 								<thead>
 									<tr>
-										<th>Location</th>
+										<th>Study</th>
+										<th>Institution</th>
 										<th>Date</th>
 										<th>Resource</th>
 									</tr>
 								</thead>
 								<tbody>
+									{% for e in estudios %}
 									<tr>
-										<td>Constitución, Chile</td>
-										<td>19-10-2024</td>
-										<td><a href="https://es.wikipedia.org/wiki/Constituci%C3%B3n_(Chile)" class="button icon solid fa-link small" target="_blank"></a></td>
+										<td>{{e.nombre}}</td>
+										<td>{{e.institucion}}</td>
+										<td>
+											{% if e.fecha %}
+												{{e.fecha}}
+											{% else  %}
+												<b><i>In course</i></b>
+											{% endif %}
+										</td>
+										<td>
+											{% if e.recurso_url %}
+												<a href="{{e.recurso_url}}" class="button icon solid fa-link small" target="_blank"></a>	
+											{% endif %}
+										</td>
+										
+										</tr>
+										{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</article>
+
+					<article id="proyectos">
+						<h2 class="major">Projects</h2>
+						 <!-- Project 1: Portfolio -->
+						 <div class="project">
+							<div class="project-header" onclick="toggleProjectContent('project1')">
+								Portfolio
+							</div>
+							<div id="project1" class="project-content">
+								<p>This project was once a dynamic website built with Django, Postgres, and some libraries, but it was transformed to a more minimalist style and to be hosted for free. <span class="bold">HTML/CSS/JS</span> was used for building the website, the domain was obtained from <span class="bold">Namecheap</span>, and the free tier from <span class="bold">GitHub Pages</span> was used for hosting.</p>
+								<a href="https://nicolasvaldes.tech" class="button_link button icon solid small" target="_blank"><i class="fas fa-external-link-alt"></i> nicolasvaldes.tech</a>
+							</div>
+						</div>
+
+						<!-- Project 2: ChileApellidos -->
+						<div class="project">
+							<div class="project-header" onclick="toggleProjectContent('project2')">
+								ChileApellidos
+							</div>
+							<div id="project2" class="project-content">
+								<p>This project analyzes Chilean surnames and displays data regarding distribution, number of people, and other information. It was built using <span class="bold">Django-Python</span> for the web framework, with <span class="bold">Bootstrap</span> for the frontend. The database used is <span class="bold">Postgres</span>, and the server is a <span class="bold">Virtual Machine (Linux)</span> hosted on <span class="bold">Digital Ocean</span>. The domain was obtained from <span class="bold">iwantmyname</span>. For data analysis, the <span class="bold">ChatGPT API</span> was used, and data scraping was done with <span class="bold">Selenium</span>.</p>
+								<a href="https://chileapellidos.com" class="button_link button icon solid small" target="_blank"><i class="fas fa-external-link-alt"></i> chileapellidos.com</a>
+							</div>
+						</div>
+
+						<!-- Project 3: RocketHub -->
+						<div class="project">
+							<div class="project-header" onclick="toggleProjectContent('project3')">
+								RocketHub
+							</div>
+							<div id="project3" class="project-content">
+								<p>This project allows a community to share their setups. It uses <span class="bold">React</span> for the frontend and <span class="bold">Django Rest Framework</span> for the backend. The database is 
+									<span class="bold">Postgres</span>, and images are stored using <span class="bold">S3 Bucket</span> from AWS. 
+									The domain is obtained from <span class="bold">Namecheap</span>, and <span class="bold">Git/GitHub</span> are used for version control and collaborative work.</p>
+								<a href="https://rockethub.tech" class="button_link button icon solid small" target="_blank"><i class="fas fa-external-link-alt"></i> rockethub.tech</a>
+							</div>
+						</div>
+							
+					</article>
+				
+					<article id="skills">
+						<h2 class="major">Skills</h2>
+							<table>
+								<thead>
+									<tr>
+										<th>Category</th>
+										<th>Skills</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Roles</td>
+										<td>
+											<ul>
+												<li><a href="https://roadmap.sh/devops?s=65bc5dcb0c548122837a55df">DevOps</a></li>
+												<li><a href="https://roadmap.sh/backend?s=65bc5dcb0c548122837a55df">Backend</a></li>
+												<li><a href="https://roadmap.sh/frontend?s=65bc5dcb0c548122837a55df">Frontend</a></li>
+												<li><a href="https://roadmap.sh/full-stack?s=65bc5dcb0c548122837a55df">Fullstack</a></li>
+											</ul>
+										</td>
 									</tr>
 									<tr>
-										<td>Santiago, Chile</td>
-										<td>16-07-1999</td>
-										<td><a href="https://es.wikipedia.org/wiki/Santiago_de_Chile" class="button icon solid fa-link small" target="_blank"></a></td>
-									</tr>								</tbody>
-							</table>
-						</article>
+										<td>Technical Skills</td>
+										<td>
+											<ul>
+												<li><a href="https://roadmap.sh/python?s=65bc5dcb0c548122837a55df">Python</a></li>
+												<li><a href="https://roadmap.sh/javascript?s=65bc5dcb0c548122837a55df">JavaScript</a></li>
+												<li><a href="https://roadmap.sh/sql?s=65bc5dcb0c548122837a55df">SQL</a></li>
+												<li><a href="https://roadmap.sh/react?s=65bc5dcb0c548122837a55df">React</a></li>
+												<li><a href="https://roadmap.sh/git-github?s=65bc5dcb0c548122837a55df">Git</a></li>
+												<li><a href="https://roadmap.sh/linux?s=65bc5dcb0c548122837a55df">Linux</a></li>
+												<li><a href="https://roadmap.sh/prompt-engineering?s=65bc5dcb0c548122837a55df">Prompt Engineering</a></li>
+											</ul>
+										</td>
+									</tr>
+									<tr>
+										<td>Microsoft Tools</td>
+										<td>
+											<ul>
+												<li>Power Automate</li>
+												<li>Power BI</li>
+												<li>Business Central</li>
+											</ul>
+										</td>
+									</tr>
+									<tr>
+										<td>Soft Skills</td>
+										<td>
+											<ul>
+												<li>Problem Solving</li>
+												<li>Team Collaboration</li>
+												<li>Communication</li>
+											</ul>
+										</td>
+									</tr>
+								</tbody>
+							</table>								
+					</article>	
+					
+					<article id="locations">
+						<h2 class="major">My locations</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Location</th>
+									<th>Date</th>
+									<th>Resource</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Constitución, Chile</td>
+									<td>19-10-2024</td>
+									<td><a href="https://es.wikipedia.org/wiki/Constituci%C3%B3n_(Chile)" class="button icon solid fa-link small" target="_blank"></a></td>
+								</tr>
+								<tr>
+									<td>Santiago, Chile</td>
+									<td>16-07-1999</td>
+									<td><a href="https://es.wikipedia.org/wiki/Santiago_de_Chile" class="button icon solid fa-link small" target="_blank"></a></td>
+								</tr>								</tbody>
+						</table>
+					</article>
 
-					</div>
+				</div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="icons">
-							<li><a href="mailto:nicolas.valdes@live.com?subject=Contacto%20desde%20portafolio" class="icon solid fa-envelope" target="_blank"><span class="label">Correo</span></a></li>
-							<li><a href="https://www.linkedin.com/in/nicolas-v-973209289/" class="icon brands fa-linkedin" target="_blank"><span class="label">linedin</span></a></li>
-							<li><a href="https://discordapp.com/users/roscow91" class="icon brands fa-discord" target="_blank"><span class="label">discord</span></a></li>
-							<li><a href="https://github.com/Roscow" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-						</ul>	
-						<p class="copyright">My <a href="#locations">Locations</a>.</p>
-						<p class="copyright">&copy;  Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-						
-					</footer>
-			</div>
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="mailto:nicolas.valdes@live.com?subject=Contacto%20desde%20portafolio" class="icon solid fa-envelope" target="_blank"><span class="label">Correo</span></a></li>
+						<li><a href="https://www.linkedin.com/in/nicolas-v-973209289/" class="icon brands fa-linkedin" target="_blank"><span class="label">linedin</span></a></li>
+						<li><a href="https://discordapp.com/users/roscow91" class="icon brands fa-discord" target="_blank"><span class="label">discord</span></a></li>
+						<li><a href="https://github.com/Roscow" class="icon brands fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+					</ul>	
+					<p class="copyright">My <a href="#locations">Locations</a>.</p>
+					<p class="copyright">&copy;  Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					
+				</footer>
+		</div>	
 
 		<!-- BG -->
 			<div id="bg"></div>
