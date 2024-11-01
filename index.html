@@ -67,23 +67,19 @@
 				</div>
 				<nav>
 					<ul>
-						<li><a href="#skills">skills</a></li>
 						<li><a href="#proyectos">Projects</a></li>
 						<li><a href="#formacion">Formation</a></li>
-						<li><a href="#articulos">Posts</a></li>
+						<li><a href="#skills">skills</a></li>
+						<li><a href="#Experience">Experience</a></li>
+						<!--<li><a href="#articulos">Posts</a></li>-->
 					</ul>
 				</nav>
 			</header>				
 
 			<!-- Main -->
 				<div id="main">
-					<article id="formacion"> 	
+					<article id="formacion">
 						<h2 class="major">Formation</h2>
-						<h3>Roles</h3>
-						<p>
-							<a href="https://roadmap.sh"><img src="https://roadmap.sh/card/tall/65bc5dcb0c548122837a55df?variant=dark" alt="roadmap.sh"/></a>								
-						</p>
-						
 						<h3>Courses and certificates</h3>
 						<div class="table-wrapper">
 							<table>
@@ -96,25 +92,36 @@
 									</tr>
 								</thead>
 								<tbody>
-									{% for e in estudios %}
 									<tr>
-										<td>{{e.nombre}}</td>
-										<td>{{e.institucion}}</td>
-										<td>
-											{% if e.fecha %}
-												{{e.fecha}}
-											{% else  %}
-												<b><i>In course</i></b>
-											{% endif %}
-										</td>
-										<td>
-											{% if e.recurso_url %}
-												<a href="{{e.recurso_url}}" class="button icon solid fa-link small" target="_blank"></a>	
-											{% endif %}
-										</td>
-										
-										</tr>
-										{% endfor %}
+										<td>Mathematical Foundations for Studying Engineering</td>
+										<td>Universitat Politecnica de Valencia</td>
+										<td>In Progress</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>Analista Programador</td>
+										<td>DuocUC</td>
+										<td>In Progress</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>React</td>
+										<td>IBM</td>
+										<td>In Progress</td>
+										<td></td>
+									</tr>
+									<tr>
+										<td>Oracle Cloud Infrastructure Foundations Associate</td>
+										<td>Oracle University</td>
+										<td>July 31, 2024</td>
+										<td><a class="button_link button icon solid small" target="_blank" href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=BE7BDBACC43E779F724DC30AE453CE98579E131B96935C5564A604FE2699B80B"><i class="fas fa-external-link-alt"></i> </a></td>
+									</tr>
+									<tr>
+										<td>Java Orientado a Objetos</td>
+										<td>Alura-latam</td>
+										<td>July 16, 2024</td>
+										<td><a class="button_link button icon solid small" target="_blank" href="https://app.aluracursos.com/certificate/nicolas-valdes/spring-boot-3-desarrollar-api-rest-java"><i class="fas fa-external-link-alt"></i></a></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -240,6 +247,41 @@
 									<td><a href="https://es.wikipedia.org/wiki/Santiago_de_Chile" class="button icon solid fa-link small" target="_blank"></a></td>
 								</tr>								</tbody>
 						</table>
+					</article>
+
+					<article id="Experience">
+						<h2 class="major">Work Experience</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Company</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+									<th>Role</th>
+									<th>Responsibilities</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>KIS</td>
+									<td>August 20, 2024</td>
+									<td>....</td>
+									<td>Software Developer</td>
+									<td>
+										<ul>
+											<li>Web development using WordPress.</li>
+											<li>Process automation using flows with Power Automate.</li>
+											<li>Development in Business Central ERP.</li>
+										</ul>
+									</td>
+								</tr>
+								<!-- Agrega más filas según sea necesario -->
+							</tbody>
+						</table>
+					</article>
+
+					<article id="articulos">
+
 					</article>
 
 				</div>
